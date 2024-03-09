@@ -5,8 +5,12 @@ import {
   Stack,
   Image,
   useColorModeValue,
+  Avatar,
 } from "@chakra-ui/react";
 import { Tags } from "../common/Tags";
+import { CalendarIcon } from "@chakra-ui/icons";
+import { useFormatDate } from "../../hooks/useFormatDate";
+
 export const EventCard = ({ event, ...rest }) => {
   console.log(event);
   return (
@@ -39,6 +43,19 @@ export const EventCard = ({ event, ...rest }) => {
           {event.title}
         </Heading>
         <Text color={"gray.500"}>{event.description}</Text>
+
+        <Text color={"gray.500"}></Text>
+      </Stack>
+      <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
+        <Avatar src={event.createdByUser.image} />
+        <Stack direction={"column"} spacing={0} fontSize={"sm"}>
+          <Text fontWeight={600}>{event.createdByUser.name}</Text>
+          <Text color={"gray.500"}>
+            <CalendarIcon /> {useFormatDate(event.startTime)}
+            {" / "}
+            {useFormatDate(event.endTime)}
+          </Text>
+        </Stack>
       </Stack>
     </Box>
   );
