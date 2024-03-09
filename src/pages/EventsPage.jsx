@@ -3,7 +3,7 @@ import { Heading, SimpleGrid } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { EventSkeleton } from "../components/events/EventSkeleton";
 import { EventCard } from "../components/events/EventCard";
-import axios from "axios";
+import { getEvents } from "../api/eventApi";
 
 export const EventsPage = () => {
   const [isFethcing, setIsFethcing] = useState(false);
@@ -15,10 +15,8 @@ export const EventsPage = () => {
 
   const fetchEvents = async () => {
     setIsFethcing(true);
-    const response = await axios.get("http://localhost:3001/events");
-    console.log("fetching");
-    setEvents(response.data);
-
+    const response = await getEvents();
+    setEvents(response);
     setIsFethcing(false);
   };
 
