@@ -12,11 +12,26 @@ import {
   Button,
   Avatar,
   Text,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import { useLoaderData } from "react-router-dom";
 import { Tags } from "../components/common/Tags";
 import { CalendarIcon } from "@chakra-ui/icons";
 import { useFormatDate } from "../hooks/useFormatDate";
+
+const EventButton = ({ children, ...rest }) => (
+  <Button
+    size={{ base: "md", sm: "sm", lg: "lg" }}
+    textTransform={"uppercase"}
+    _hover={{
+      transform: "translateY(2px)",
+      boxShadow: "lg",
+    }}
+    {...rest}
+  >
+    {children}
+  </Button>
+);
 
 export const EventPage = () => {
   const event = useLoaderData();
@@ -86,22 +101,11 @@ export const EventPage = () => {
             </Stack>
           </Stack>
 
-          <Button
-            rounded={"none"}
-            w={"full"}
-            mt={8}
-            size={"lg"}
-            py={"7"}
-            bg={"green.500"}
-            color={"white"}
-            textTransform={"uppercase"}
-            _hover={{
-              transform: "translateY(2px)",
-              boxShadow: "lg",
-            }}
-          >
-            Close
-          </Button>
+          <ButtonGroup>
+            <EventButton>Close</EventButton>
+            <EventButton>Edit</EventButton>
+            <EventButton colorScheme="red">Delete</EventButton>
+          </ButtonGroup>
         </Stack>
       </SimpleGrid>
     </Container>
