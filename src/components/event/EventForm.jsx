@@ -2,8 +2,6 @@ import {
   Box,
   FormControl,
   FormLabel,
-  Input,
-  Textarea,
   CheckboxGroup,
   Checkbox,
   Stack,
@@ -27,6 +25,7 @@ import { getCategories } from "../../api/categoryApi";
 import { SimpleInput } from "./SimpleInput";
 import { SimpleTextarea } from "./SimpleTextarea";
 import { SimpleDatePicker } from "./SimpleDatePicker";
+import { FormControlWithValidation } from "./FormControlWithValidation";
 
 export const EventForm = ({ event }) => {
   const [state, dispatch] = useReducer(eventReducer, event);
@@ -68,6 +67,8 @@ export const EventForm = ({ event }) => {
   const checkBoxValuesBug = state.categoryIds
     ? state.categoryIds.map((id) => `${id}`)
     : [];
+  const categoriesIsError =
+    state.categoryIds && state.categoryIds.length > 0 ? false : true;
 
   const categoryCheckboxes = categories.map((c) => (
     //checkbox group does not work well with numbers so convert id to string
@@ -86,12 +87,15 @@ export const EventForm = ({ event }) => {
     state.createdBy && users.find((u) => u.id == state.createdBy);
 
   let selectedUserOption;
+  let selectedUserIsError;
 
   if (selectedUser) {
+    selectedUserIsError = false;
     selectedUserOption = (
       <option value={selectedUser.id}>{selectedUser.name}</option>
     );
   } else {
+    selectedUserIsError = true;
     const option = <option value="-1"></option>;
     selectedUserOption = option;
     userOptions = [option, ...userOptions];
@@ -135,8 +139,7 @@ export const EventForm = ({ event }) => {
         onChange={(e) => handleChange(e, SET_ENDTIME)}
       />
 
-      <FormControl id="categoryIds">
-        <FormLabel>Categories</FormLabel>
+      <FormControlWithValidation title="Category" isError={categoriesIsError}>
         <CheckboxGroup
           defaultValue={checkBoxValuesBug}
           onChange={(e) => handleCategoryChange(e)}
@@ -145,17 +148,19 @@ export const EventForm = ({ event }) => {
             {categoryCheckboxes}
           </Stack>
         </CheckboxGroup>
-      </FormControl>
+      </FormControlWithValidation>
 
-      <FormControl id="createdBy">
-        <FormLabel>Organizer</FormLabel>
+      <FormControlWithValidation
+        title="Organizer"
+        isError={selectedUserIsError}
+      >
         <Select
           defaultValue={selectedUserOption}
           onChange={(e) => handleChange(e, SET_CREATEDBY)}
         >
           {userOptions}
         </Select>
-      </FormControl>
+      </FormControlWithValidation>
 
       <Button mt={4} colorScheme="teal" type="submit" onClick={handleSubmit}>
         Submit
