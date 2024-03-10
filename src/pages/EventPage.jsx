@@ -27,6 +27,7 @@ import { CalendarIcon } from "@chakra-ui/icons";
 import { useFormatDate } from "../hooks/useFormatDate";
 import { useNavigate } from "react-router-dom";
 import { EventForm } from "../components/event/EventForm";
+import { putEvent } from "../api/eventApi";
 
 const EventButton = ({ children, ...rest }) => (
   <Button
@@ -46,6 +47,15 @@ export const EventPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const event = useLoaderData();
   const navigate = useNavigate();
+
+  const onUpdate = async (updatedEvent) => {
+    if (await putEvent(event.id, updatedEvent)) {
+      console.log("jeeeeh");
+    } else {
+      console.log("nooooo");
+    }
+  };
+
   return (
     <>
       <LinkBox maxW={"7xl"}>
@@ -127,7 +137,7 @@ export const EventPage = () => {
           <DrawerHeader>Create your account</DrawerHeader>
 
           <DrawerBody>
-            <EventForm event={event} />
+            <EventForm event={event} onSave={onUpdate} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

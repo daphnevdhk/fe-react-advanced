@@ -78,6 +78,21 @@
       "startTime": "2024-03-10T17:31",
       "endTime": "2024-03-14T17:31",
       "id": 5
+    },
+    {
+      "createdBy": "2",
+      "title": "bbq lekker!",
+      "description": "bqq bij mij",
+      "image": "https://th.bing.com/th/id/R.ce44791bbda5945db3f1cecd41d4ef37?rik=O1lU%2bFv4JWGG5Q&pid=ImgRaw&r=0",
+      "categoryIds": [
+        1,
+        2,
+        3
+      ],
+      "location": "backyard",
+      "startTime": "2024-03-10T17:42",
+      "endTime": "2024-03-30T17:42",
+      "id": 6
     }
   ],
   "categories": [
