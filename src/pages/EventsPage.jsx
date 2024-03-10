@@ -1,5 +1,17 @@
 import React from "react";
-import { Heading, SimpleGrid } from "@chakra-ui/react";
+import {
+  Heading,
+  SimpleGrid,
+  useDisclosure,
+  Drawer,
+  DrawerCloseButton,
+  DrawerBody,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  Button,
+  DrawerFooter,
+} from "@chakra-ui/react";
 import { useState, useEffect, useReducer } from "react";
 import { EventSkeleton } from "../components/events/EventSkeleton";
 import { EventCard } from "../components/events/EventCard";
@@ -11,8 +23,10 @@ import {
   REMOVE_CATEGORY,
   SET_SEARCH,
 } from "../reducers/eventSearchFilterReducer";
+import { EventForm } from "../components/event/EventForm";
 
 export const EventsPage = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isFethcing, setIsFethcing] = useState(false);
   const [events, setEvents] = useState([]);
   const [searchFilterState, dispatch] = useReducer(eventSearchFilterReducer, {
@@ -66,9 +80,21 @@ export const EventsPage = () => {
         onTagSelectionChange={onTagSelectionChange}
         onSearchChange={onSearchChange}
       />
+      <Button onClick={onOpen}>New</Button>
       <SimpleGrid minChildWidth="300px" spacing="20px">
         {renderedEvents}
       </SimpleGrid>
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Create your account</DrawerHeader>
+
+          <DrawerBody>
+            <EventForm event={{}} />
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 };
