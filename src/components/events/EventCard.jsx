@@ -43,18 +43,11 @@ export const EventCard = ({ event, ...rest }) => {
         </Heading>
         <Text color={"gray.500"}>{event.description}</Text>
 
-        <Text color={"gray.500"}></Text>
-      </Stack>
-      <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
-        <Avatar src={event.createdByUser.image} />
-        <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-          <Text fontWeight={600}>{event.createdByUser.name}</Text>
-          <Text color={"gray.500"}>
-            <CalendarIcon /> {useFormatDate(event.startTime)}
-            {" / "}
-            {useFormatDate(event.endTime)}
-          </Text>
-        </Stack>
+        <Text color={"gray.500"}>
+          <CalendarIcon /> {useFormatDate(event.startTime)}
+          {" / "}
+          {useFormatDate(event.endTime)}
+        </Text>
       </Stack>
     </Box>
   );
