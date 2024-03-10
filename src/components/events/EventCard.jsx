@@ -12,7 +12,6 @@ import { CalendarIcon } from "@chakra-ui/icons";
 import { useFormatDate } from "../../hooks/useFormatDate";
 
 export const EventCard = ({ event, ...rest }) => {
-  console.log(event);
   return (
     <Box
       maxW={"445px"}

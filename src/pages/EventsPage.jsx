@@ -1,14 +1,24 @@
 import React from "react";
 import { Heading, SimpleGrid } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { EventSkeleton } from "../components/events/EventSkeleton";
 import { EventCard } from "../components/events/EventCard";
 import { getEvents } from "../api/eventApi";
 import { SearchAndFilter } from "../components/events/SearchAndFilter";
+import {
+  eventSearchFilterReducer,
+  ADD_CATEGORY,
+  REMOVE_CATEGORY,
+  SET_SEARCH,
+} from "../reducers/eventsReducer";
 
 export const EventsPage = () => {
   const [isFethcing, setIsFethcing] = useState(false);
   const [events, setEvents] = useState([]);
+  const [searchFilterState, dispatch] = useReducer(eventSearchFilterReducer, {
+    search: "",
+    categories: [],
+  });
 
   useEffect(() => {
     fetchEvents();
@@ -22,12 +32,17 @@ export const EventsPage = () => {
   };
 
   const onTagSelectionChange = (categoryId, isSelected) => {
-    console.log(categoryId, isSelected);
+    if (isSelected) {
+      dispatch({ type: ADD_CATEGORY, categoryId: categoryId });
+    } else {
+      dispatch({ type: REMOVE_CATEGORY, categoryId: categoryId });
+    }
   };
 
   const onSearchChange = (search) => {
-    console.log(search);
+    dispatch({ type: SET_SEARCH, search: search });
   };
+
   const loadingPlaceHolder = (
     <>
       <EventSkeleton />
@@ -47,7 +62,7 @@ export const EventsPage = () => {
     <>
       <Heading>List of events</Heading>
       <SearchAndFilter
-        activeCategoryIds={[1, 2]}
+        activeCategoryIds={searchFilterState.categories}
         onTagSelectionChange={onTagSelectionChange}
         onSearchChange={onSearchChange}
       />

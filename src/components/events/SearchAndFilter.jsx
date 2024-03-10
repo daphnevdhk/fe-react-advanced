@@ -16,6 +16,7 @@ export const SearchAndFilter = ({
   onTagSelectionChange,
   onSearchChange,
 }) => {
+  console.log(activeCategoryIds);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
