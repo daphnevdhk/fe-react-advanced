@@ -24,6 +24,9 @@ import {
 import { useReducer, useEffect, useState } from "react";
 import { getUsers } from "../../api/userApi";
 import { getCategories } from "../../api/categoryApi";
+import { SimpleInput } from "./SimpleInput";
+import { SimpleTextarea } from "./SimpleTextarea";
+import { SimpleDatePicker } from "./SimpleDatePicker";
 
 export const EventForm = ({ event }) => {
   const [state, dispatch] = useReducer(eventReducer, event);
@@ -55,6 +58,10 @@ export const EventForm = ({ event }) => {
       //checkbox group does not work well with numbers so we converted those to strings. Now we need the int value
       payload: selectedCategories.map((c) => Number(c)),
     });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
 
   //checkbox group does not work well with numbers
@@ -92,55 +99,41 @@ export const EventForm = ({ event }) => {
 
   return (
     <Box as="form">
-      <FormControl id="title">
-        <FormLabel>Title</FormLabel>
-        <Input
-          defaultValue={state.title}
-          onChange={(e) => handleChange(e, SET_TITLE)}
-        />
-      </FormControl>
+      <SimpleInput
+        title="Title"
+        defaultValue={state.title}
+        onChange={(e) => handleChange(e, SET_TITLE)}
+      />
 
-      <FormControl id="description">
-        <FormLabel>Description</FormLabel>
-        <Textarea
-          defaultValue={state.description}
-          onChange={(e) => handleChange(e, SET_DESCRIPTION)}
-        />
-      </FormControl>
+      <SimpleTextarea
+        title="Description"
+        defaultValue={state.description}
+        onChange={(e) => handleChange(e, SET_DESCRIPTION)}
+      />
 
-      <FormControl id="image">
-        <FormLabel>Image URL</FormLabel>
-        <Input
-          defaultValue={state.image}
-          onChange={(e) => handleChange(e, SET_IMAGE)}
-        />
-      </FormControl>
+      <SimpleInput
+        title="Image URL"
+        defaultValue={state.image}
+        onChange={(e) => handleChange(e, SET_IMAGE)}
+      />
 
-      <FormControl id="location">
-        <FormLabel>Location</FormLabel>
-        <Input
-          defaultValue={state.location}
-          onChange={(e) => handleChange(e, SET_LOCATION)}
-        />
-      </FormControl>
+      <SimpleInput
+        title="Location"
+        defaultValue={state.location}
+        onChange={(e) => handleChange(e, SET_LOCATION)}
+      />
 
-      <FormControl id="startTime">
-        <FormLabel>Start Time</FormLabel>
-        <Input
-          type="datetime-local"
-          defaultValue={state.startTime}
-          onChange={(e) => handleChange(e, SET_STARTTIME)}
-        />
-      </FormControl>
+      <SimpleDatePicker
+        title="Start Time"
+        defaultValue={state.startTime}
+        onChange={(e) => handleChange(e, SET_STARTTIME)}
+      />
 
-      <FormControl id="endTime">
-        <FormLabel>End Time</FormLabel>
-        <Input
-          type="datetime-local"
-          defaultValue={state.endTime}
-          onChange={(e) => handleChange(e, SET_ENDTIME)}
-        />
-      </FormControl>
+      <SimpleDatePicker
+        title="End Time"
+        defaultValue={state.endTime}
+        onChange={(e) => handleChange(e, SET_ENDTIME)}
+      />
 
       <FormControl id="categoryIds">
         <FormLabel>Categories</FormLabel>
@@ -164,7 +157,7 @@ export const EventForm = ({ event }) => {
         </Select>
       </FormControl>
 
-      <Button mt={4} colorScheme="teal" type="submit">
+      <Button mt={4} colorScheme="teal" type="submit" onClick={handleSubmit}>
         Submit
       </Button>
     </Box>
