@@ -52,11 +52,18 @@ export const EventForm = ({ event }) => {
   const handleCategoryChange = (selectedCategories) => {
     dispatch({
       type: SET_CATEGORYIDS,
+      //checkbox group does not work well with numbers so we converted those to strings. Now we need the int value
       payload: selectedCategories.map((c) => Number(c)),
     });
   };
 
+  //checkbox group does not work well with numbers
+  const checkBoxValuesBug = state.categoryIds
+    ? state.categoryIds.map((id) => `${id}`)
+    : [];
+
   const categoryCheckboxes = categories.map((c) => (
+    //checkbox group does not work well with numbers so convert id to string
     <Checkbox key={c.id} value={`${c.id}`}>
       {c.name}
     </Checkbox>
@@ -70,8 +77,6 @@ export const EventForm = ({ event }) => {
 
   const selectedUser =
     state.createdBy && users.find((u) => u.id == state.createdBy);
-
-  console.log(state);
 
   let selectedUserOption;
 
@@ -140,7 +145,7 @@ export const EventForm = ({ event }) => {
       <FormControl id="categoryIds">
         <FormLabel>Categories</FormLabel>
         <CheckboxGroup
-          defaultValue={state.categoryIds}
+          defaultValue={checkBoxValuesBug}
           onChange={(e) => handleCategoryChange(e)}
         >
           <Stack spacing={[1, 5]} direction={["column", "row"]}>
