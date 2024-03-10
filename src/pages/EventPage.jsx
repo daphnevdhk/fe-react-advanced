@@ -28,6 +28,7 @@ import { useFormatDate } from "../hooks/useFormatDate";
 import { useNavigate } from "react-router-dom";
 import { EventForm } from "../components/event/EventForm";
 import { putEvent } from "../api/eventApi";
+import { useNotificationContext } from "../hooks/use-notification-context";
 
 const EventButton = ({ children, ...rest }) => (
   <Button
@@ -47,12 +48,13 @@ export const EventPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const event = useLoaderData();
   const navigate = useNavigate();
+  const { addNotification } = useNotificationContext();
 
   const onUpdate = async (updatedEvent) => {
     if (await putEvent(event.id, updatedEvent)) {
-      console.log("jeeeeh");
+      addNotification("jeeeeh");
     } else {
-      console.log("nooooo");
+      addNotification("nooo");
     }
   };
 
@@ -99,7 +101,7 @@ export const EventPage = () => {
               }
             >
               <Box>
-                <text>{event.description}</text>
+                <Text>{event.description}</Text>
               </Box>
 
               <Box>

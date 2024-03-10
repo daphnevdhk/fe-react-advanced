@@ -13,7 +13,6 @@
   ],
   "events": [
     {
-      "id": 1,
       "createdBy": 1,
       "title": "Trampoline party",
       "description": "Bounce around with your friends",
@@ -23,10 +22,10 @@
       ],
       "location": "My back yard",
       "startTime": "2023-03-10T18:00",
-      "endTime": "2023-03-10T17:00:00.000Z"
+      "endTime": "2023-03-10T17:00:00.000Z",
+      "id": 1
     },
     {
-      "id": 2,
       "createdBy": 1,
       "title": "Laser Tag mania",
       "description": "Let's play laser tag!",
@@ -36,7 +35,8 @@
       ],
       "location": "Blinded by the Lights Laser Tag, 15 Main St.",
       "startTime": "2023-04-06T18:46",
-      "endTime": "2023-04-06T17:46"
+      "endTime": "2023-04-06T17:46",
+      "id": 2
     },
     {
       "id": 3,
@@ -66,7 +66,7 @@
       "endTime": "2023-03-09T07:00:00.000Z"
     },
     {
-      "createdBy": "1",
+      "createdBy": 1,
       "title": "bbq",
       "description": "bbq by me",
       "image": "https://th.bing.com/th/id/R.ce44791bbda5945db3f1cecd41d4ef37?rik=O1lU%2bFv4JWGG5Q&pid=ImgRaw&r=0",
@@ -80,7 +80,7 @@
       "id": 5
     },
     {
-      "createdBy": "2",
+      "createdBy": 2,
       "title": "bbq lekker!",
       "description": "bqq bij mij",
       "image": "https://th.bing.com/th/id/R.ce44791bbda5945db3f1cecd41d4ef37?rik=O1lU%2bFv4JWGG5Q&pid=ImgRaw&r=0",

@@ -57,6 +57,14 @@ export const EventForm = ({ event, onSave }) => {
     });
   };
 
+  const handleUserChange = (e) => {
+    dispatch({
+      type: SET_CREATEDBY,
+      //checkbox group does not work well with numbers so we converted those to strings. Now we need the int value
+      payload: Number(e.target.value),
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(state);
@@ -95,7 +103,7 @@ export const EventForm = ({ event, onSave }) => {
     );
   } else {
     selectedUserIsError = true;
-    const option = <option value="-1"></option>;
+    const option = <option key="-1" value="-1"></option>;
     selectedUserOption = option;
     userOptions = [option, ...userOptions];
   }
@@ -155,7 +163,7 @@ export const EventForm = ({ event, onSave }) => {
       >
         <Select
           defaultValue={selectedUserOption}
-          onChange={(e) => handleChange(e, SET_CREATEDBY)}
+          onChange={(e) => handleUserChange(e)}
         >
           {userOptions}
         </Select>
