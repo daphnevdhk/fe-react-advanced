@@ -25,7 +25,7 @@ import { SimpleTextarea } from "./SimpleTextarea";
 import { SimpleDatePicker } from "./SimpleDatePicker";
 import { FormControlWithValidation } from "./FormControlWithValidation";
 
-export const EventForm = ({ event }) => {
+export const EventForm = ({ event, onSave }) => {
   const [state, dispatch] = useReducer(eventReducer, event);
   const [categories, setCategories] = useState([]);
   const [users, setUsers] = useState([]);
@@ -59,7 +59,7 @@ export const EventForm = ({ event }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit");
+    onSave(state);
   };
 
   //checkbox group does not work well with numbers

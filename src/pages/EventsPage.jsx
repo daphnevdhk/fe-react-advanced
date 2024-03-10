@@ -10,7 +10,6 @@ import {
   DrawerOverlay,
   DrawerContent,
   Button,
-  DrawerFooter,
 } from "@chakra-ui/react";
 import { useState, useEffect, useReducer } from "react";
 import { EventSkeleton } from "../components/events/EventSkeleton";
@@ -24,6 +23,7 @@ import {
   SET_SEARCH,
 } from "../reducers/eventSearchFilterReducer";
 import { EventForm } from "../components/event/EventForm";
+import { postEvent } from "../api/eventApi";
 
 export const EventsPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,6 +55,14 @@ export const EventsPage = () => {
 
   const onSearchChange = (search) => {
     dispatch({ type: SET_SEARCH, search: search });
+  };
+
+  const onNewItemAdded = async (event) => {
+    if (await postEvent(event)) {
+      console.log("jeeeeh");
+    } else {
+      console.log("nooooo");
+    }
   };
 
   const loadingPlaceHolder = (
@@ -91,7 +99,7 @@ export const EventsPage = () => {
           <DrawerHeader>Create your account</DrawerHeader>
 
           <DrawerBody>
-            <EventForm event={{}} />
+            <EventForm event={{}} onSave={onNewItemAdded} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
