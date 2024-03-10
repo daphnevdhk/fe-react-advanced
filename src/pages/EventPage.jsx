@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Heading,
-  Container,
   SimpleGrid,
   Flex,
   Image,
@@ -13,6 +12,7 @@ import {
   Avatar,
   Text,
   ButtonGroup,
+  LinkBox,
 } from "@chakra-ui/react";
 import { useLoaderData } from "react-router-dom";
 import { Tags } from "../components/common/Tags";
@@ -36,9 +36,9 @@ const EventButton = ({ children, ...rest }) => (
 
 export const EventPage = () => {
   const event = useLoaderData();
-  const navigate = useNavigate();
+  const navigate = useNavigate(`/event/${event.id}`);
   return (
-    <Container maxW={"7xl"}>
+    <LinkBox maxW={"7xl"}>
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
@@ -109,6 +109,6 @@ export const EventPage = () => {
           </ButtonGroup>
         </Stack>
       </SimpleGrid>
-    </Container>
+    </LinkBox>
   );
 };

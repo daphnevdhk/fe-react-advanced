@@ -5,15 +5,17 @@ import {
   Stack,
   Image,
   useColorModeValue,
-  Avatar,
+  LinkBox,
 } from "@chakra-ui/react";
 import { Tags } from "../common/Tags";
 import { CalendarIcon } from "@chakra-ui/icons";
 import { useFormatDate } from "../../hooks/useFormatDate";
+import { useNavigate } from "react-router-dom";
 
 export const EventCard = ({ event, ...rest }) => {
+  const navigate = useNavigate();
   return (
-    <Box
+    <LinkBox
       maxW={"445px"}
       w={"full"}
       bg={useColorModeValue("white", "gray.900")}
@@ -21,6 +23,11 @@ export const EventCard = ({ event, ...rest }) => {
       rounded={"md"}
       p={6}
       overflow={"hidden"}
+      onClick={() => navigate(`/event/${event.id}`)}
+      _hover={{
+        transform: "translateY(2px)",
+        boxShadow: "lg",
+      }}
       {...rest}
     >
       <Box h={"210px"} bg={"gray.100"} mt={-6} mx={-6} mb={6} pos={"relative"}>
@@ -49,6 +56,6 @@ export const EventCard = ({ event, ...rest }) => {
           {useFormatDate(event.endTime)}
         </Text>
       </Stack>
-    </Box>
+    </LinkBox>
   );
 };
