@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { EventSkeleton } from "../components/events/EventSkeleton";
 import { EventCard } from "../components/events/EventCard";
 import { getEvents } from "../api/eventApi";
+import { SearchAndFilter } from "../components/events/SearchAndFilter";
 
 export const EventsPage = () => {
   const [isFethcing, setIsFethcing] = useState(false);
@@ -20,6 +21,13 @@ export const EventsPage = () => {
     setIsFethcing(false);
   };
 
+  const onTagSelectionChange = (categoryId, isSelected) => {
+    console.log(categoryId, isSelected);
+  };
+
+  const onSearchChange = (search) => {
+    console.log(search);
+  };
   const loadingPlaceHolder = (
     <>
       <EventSkeleton />
@@ -38,6 +46,11 @@ export const EventsPage = () => {
   return (
     <>
       <Heading>List of events</Heading>
+      <SearchAndFilter
+        activeCategoryIds={[1, 2]}
+        onTagSelectionChange={onTagSelectionChange}
+        onSearchChange={onSearchChange}
+      />
       <SimpleGrid minChildWidth="300px" spacing="20px">
         {renderedEvents}
       </SimpleGrid>
