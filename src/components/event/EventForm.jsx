@@ -1,7 +1,5 @@
 import {
   Box,
-  FormControl,
-  FormLabel,
   CheckboxGroup,
   Checkbox,
   Stack,
@@ -61,6 +59,7 @@ export const EventForm = ({ event }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("submit");
   };
 
   //checkbox group does not work well with numbers
