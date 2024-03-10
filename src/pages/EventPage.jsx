@@ -18,6 +18,7 @@ import { useLoaderData } from "react-router-dom";
 import { Tags } from "../components/common/Tags";
 import { CalendarIcon } from "@chakra-ui/icons";
 import { useFormatDate } from "../hooks/useFormatDate";
+import { useNavigate } from "react-router-dom";
 
 const EventButton = ({ children, ...rest }) => (
   <Button
@@ -35,7 +36,7 @@ const EventButton = ({ children, ...rest }) => (
 
 export const EventPage = () => {
   const event = useLoaderData();
-  console.log(event);
+  const navigate = useNavigate();
   return (
     <Container maxW={"7xl"}>
       <SimpleGrid
@@ -102,7 +103,7 @@ export const EventPage = () => {
           </Stack>
 
           <ButtonGroup>
-            <EventButton>Close</EventButton>
+            <EventButton onClick={() => navigate("/")}>Close</EventButton>
             <EventButton>Edit</EventButton>
             <EventButton colorScheme="red">Delete</EventButton>
           </ButtonGroup>
