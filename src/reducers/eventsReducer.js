@@ -15,7 +15,6 @@ const eventSearchFilterReducer = (state, action) => {
         categories: state.categories.filter((id) => id != action.categoryId),
       };
     case ADD_CATEGORY:
-      const updatedArray = "";
       return {
         ...state,
         categories: [...state.categories, action.categoryId],

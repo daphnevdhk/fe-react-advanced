@@ -21,12 +21,12 @@ export const EventsPage = () => {
   });
 
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    fetchEvents(searchFilterState);
+  }, [searchFilterState]);
 
-  const fetchEvents = async () => {
+  const fetchEvents = async (search) => {
     setIsFethcing(true);
-    const response = await getEvents();
+    const response = await getEvents(search);
     setEvents(response);
     setIsFethcing(false);
   };
