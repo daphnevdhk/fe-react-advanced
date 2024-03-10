@@ -32,5 +32,5 @@ export const getEvents = async (filter) => {
 export const getEvent = async (eventId) => {
   const url = `${import.meta.env.VITE_REACT_APP_API_URL}/events/${eventId}`;
   const response = await axios.get(url);
-  return response.data;
+  return await mapEvent(response.data);
 };
