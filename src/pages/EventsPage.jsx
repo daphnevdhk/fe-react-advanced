@@ -10,7 +10,7 @@ import {
   ADD_CATEGORY,
   REMOVE_CATEGORY,
   SET_SEARCH,
-} from "../reducers/eventsReducer";
+} from "../reducers/eventSearchFilterReducer";
 
 export const EventsPage = () => {
   const [isFethcing, setIsFethcing] = useState(false);
