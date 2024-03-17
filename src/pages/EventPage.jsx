@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Heading,
   SimpleGrid,
@@ -21,16 +21,17 @@ import {
   DrawerHeader,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { getEvent } from "../api/eventApi";
 import { Tags } from "../components/common/Tags";
 import { CalendarIcon } from "@chakra-ui/icons";
 import { useFormatDate } from "../hooks/useFormatDate";
 import { useNavigate } from "react-router-dom";
 import { EventForm } from "../components/event/EventForm";
 import { putEvent } from "../api/eventApi";
-import { useNotificationContext } from "../hooks/use-notification-context";
 import DeleteConfirmation from "../components/event/DeleteConfirmation";
 import { deleteEvent } from "../api/eventApi";
+import { useNotification } from "../hooks/use-notification";
 
 const EventButton = ({ children, ...rest }) => (
   <Button
@@ -49,15 +50,31 @@ const EventButton = ({ children, ...rest }) => (
 export const EventPage = () => {
   const editFormDisclosure = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const event = useLoaderData();
+  const { eventId } = useParams();
+  const [event, setEvent] = useState(null);
+  const [reload, setReload] = useState(false);
   const navigate = useNavigate();
-  const { addNotification } = useNotificationContext();
+  const { showError, showSuccess } = useNotification();
+
+  useEffect(() => {
+    fetchEvent();
+    if (reload) {
+      setReload(false);
+    }
+  }, [reload]);
+
+  const fetchEvent = async () => {
+    const response = await getEvent(Number(eventId));
+    setEvent(response);
+  };
 
   const onUpdate = async (updatedEvent) => {
     if (await putEvent(event.id, updatedEvent)) {
-      addNotification("jeeeeh");
+      editFormDisclosure.onClose();
+      showSuccess("Success!", `${event.title} updated successful`);
+      setReload(true);
     } else {
-      addNotification("nooo");
+      showError("Error", `$Could not update {event.title}`);
     }
   };
 
@@ -69,6 +86,13 @@ export const EventPage = () => {
   const goToHome = () => {
     return navigate("/");
   };
+
+  console.log(eventId);
+  console.log(event);
+
+  if (!event) {
+    return <></>;
+  }
 
   return (
     <>
