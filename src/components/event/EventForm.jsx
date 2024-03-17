@@ -6,19 +6,17 @@ import {
   Button,
   Select,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { getUsers } from "../../api/userApi";
-import { getCategories } from "../../api/categoryApi";
 import { SimpleInput } from "./SimpleInput";
 import { SimpleTextarea } from "./SimpleTextarea";
 import { SimpleDatePicker } from "./SimpleDatePicker";
 import { FormControlWithValidation } from "./FormControlWithValidation";
 import { useForm, Controller } from "react-hook-form";
+import { useSiteContext } from "../../hooks/use-Site-Context";
 
 export const EventForm = ({ event, onSave }) => {
   console.log(event);
-  const [categories, setCategories] = useState([]);
-  const [users, setUsers] = useState([]);
+
+  const { categories, users } = useSiteContext();
 
   const {
     handleSubmit,
@@ -26,21 +24,6 @@ export const EventForm = ({ event, onSave }) => {
     control,
     formState: { errors, isSubmitting },
   } = useForm();
-
-  useEffect(() => {
-    fetchCategories();
-    fetchUsers();
-  }, []);
-
-  const fetchCategories = async () => {
-    const response = await getCategories();
-    setCategories(response);
-  };
-
-  const fetchUsers = async () => {
-    const response = await getUsers();
-    setUsers(response);
-  };
 
   //checkbox group does not work well with numbers
   const checkBoxValuesBug = event.categoryIds

@@ -4,15 +4,18 @@ import { Navigation } from "./Navigation";
 import { Box } from "@chakra-ui/react";
 import { NotificationProvider } from "../contexts/NotificationContext";
 import { Notifications } from "./notification/Notifications";
+import { SiteContextProvider } from "../contexts/SiteContext";
 
 export const Root = () => {
   return (
     <Box>
       <Navigation />
-      <NotificationProvider>
-        <Notifications />
-        <Outlet />
-      </NotificationProvider>
+      <SiteContextProvider>
+        <NotificationProvider>
+          <Notifications />
+          <Outlet />
+        </NotificationProvider>
+      </SiteContextProvider>
     </Box>
   );
 };
