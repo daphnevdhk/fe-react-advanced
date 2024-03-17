@@ -1,11 +1,16 @@
 import { FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 
-export const FormControlWithValidation = ({ title, isError, children }) => {
+export const FormControlWithValidation = ({
+  title,
+  isError,
+  errorMessage,
+  children,
+}) => {
   return (
     <FormControl id={title.toLowerCase()} isInvalid={isError}>
       <FormLabel>{title}</FormLabel>
       {children}
-      <FormErrorMessage>{`${title} is required.`}</FormErrorMessage>
+      <FormErrorMessage>{errorMessage}</FormErrorMessage>
     </FormControl>
   );
 };

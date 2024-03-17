@@ -6,29 +6,26 @@ import {
   Button,
   Select,
 } from "@chakra-ui/react";
-import {
-  SET_CREATEDBY,
-  SET_TITLE,
-  SET_DESCRIPTION,
-  SET_IMAGE,
-  SET_CATEGORYIDS,
-  SET_LOCATION,
-  SET_STARTTIME,
-  SET_ENDTIME,
-  eventReducer,
-} from "../../reducers/eventReducer";
-import { useReducer, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getUsers } from "../../api/userApi";
 import { getCategories } from "../../api/categoryApi";
 import { SimpleInput } from "./SimpleInput";
 import { SimpleTextarea } from "./SimpleTextarea";
 import { SimpleDatePicker } from "./SimpleDatePicker";
 import { FormControlWithValidation } from "./FormControlWithValidation";
+import { useForm, Controller } from "react-hook-form";
 
 export const EventForm = ({ event, onSave }) => {
-  const [state, dispatch] = useReducer(eventReducer, event);
+  console.log(event);
   const [categories, setCategories] = useState([]);
   const [users, setUsers] = useState([]);
+
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
   useEffect(() => {
     fetchCategories();
@@ -45,37 +42,10 @@ export const EventForm = ({ event, onSave }) => {
     setUsers(response);
   };
 
-  const handleChange = (e, type) => {
-    dispatch({ type: type, payload: e.target.value });
-  };
-
-  const handleCategoryChange = (selectedCategories) => {
-    dispatch({
-      type: SET_CATEGORYIDS,
-      //checkbox group does not work well with numbers so we converted those to strings. Now we need the int value
-      payload: selectedCategories.map((c) => Number(c)),
-    });
-  };
-
-  const handleUserChange = (e) => {
-    dispatch({
-      type: SET_CREATEDBY,
-      //checkbox group does not work well with numbers so we converted those to strings. Now we need the int value
-      payload: Number(e.target.value),
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSave(state);
-  };
-
   //checkbox group does not work well with numbers
-  const checkBoxValuesBug = state.categoryIds
-    ? state.categoryIds.map((id) => `${id}`)
+  const checkBoxValuesBug = event.categoryIds
+    ? event.categoryIds.map((id) => `${id}`)
     : [];
-  const categoriesIsError =
-    state.categoryIds && state.categoryIds.length > 0 ? false : true;
 
   const categoryCheckboxes = categories.map((c) => (
     //checkbox group does not work well with numbers so convert id to string
@@ -91,87 +61,145 @@ export const EventForm = ({ event, onSave }) => {
   ));
 
   const selectedUser =
-    state.createdBy && users.find((u) => u.id == state.createdBy);
+    event.createdBy && users.find((u) => u.id == event.createdBy);
 
-  let selectedUserOption;
-  let selectedUserIsError;
-
-  if (selectedUser) {
-    selectedUserIsError = false;
-    selectedUserOption = (
-      <option value={selectedUser.id}>{selectedUser.name}</option>
-    );
-  } else {
-    selectedUserIsError = true;
-    const option = <option key="-1" value="-1"></option>;
-    selectedUserOption = option;
+  if (!selectedUser) {
+    const option = <option key="-1" value=""></option>;
     userOptions = [option, ...userOptions];
   }
 
+  function onSubmit(values) {
+    onSave({
+      title: values.title,
+      description: values.description,
+      image: values.image,
+      location: values.location,
+      categoryIds: values.categoryIds.map((c) => Number(c)),
+      startTime: values.startTime,
+      endTime: values.endTime,
+      createdBy: Number(values.createdBy),
+    });
+  }
+
   return (
-    <Box as="form">
-      <SimpleInput
-        title="Title"
-        defaultValue={state.title}
-        onChange={(e) => handleChange(e, SET_TITLE)}
-      />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Box>
+        <SimpleInput
+          title="Title"
+          defaultValue={event.title}
+          formRegister={{
+            ...register("title", {
+              required: "Title is required",
+            }),
+          }}
+          error={errors.title}
+        />
 
-      <SimpleTextarea
-        title="Description"
-        defaultValue={state.description}
-        onChange={(e) => handleChange(e, SET_DESCRIPTION)}
-      />
+        <SimpleTextarea
+          title="Description"
+          defaultValue={event.description}
+          formRegister={{
+            ...register("description", {
+              required: "Description is required",
+            }),
+          }}
+          error={errors.description}
+        />
 
-      <SimpleInput
-        title="Image URL"
-        defaultValue={state.image}
-        onChange={(e) => handleChange(e, SET_IMAGE)}
-      />
+        <SimpleInput
+          title="Image URL"
+          defaultValue={event.image}
+          formRegister={{
+            ...register("image", {
+              required: "Image is required",
+            }),
+          }}
+          error={errors.image}
+        />
 
-      <SimpleInput
-        title="Location"
-        defaultValue={state.location}
-        onChange={(e) => handleChange(e, SET_LOCATION)}
-      />
+        <SimpleInput
+          title="Location"
+          defaultValue={event.location}
+          formRegister={{
+            ...register("location", {
+              required: "Location is required",
+            }),
+          }}
+          error={errors.location}
+        />
 
-      <SimpleDatePicker
-        title="Start Time"
-        defaultValue={state.startTime}
-        onChange={(e) => handleChange(e, SET_STARTTIME)}
-      />
+        <SimpleDatePicker
+          title="Start Time"
+          defaultValue={event.startTime}
+          formRegister={{
+            ...register("startTime", {
+              required: "StartTime is required",
+            }),
+          }}
+          error={errors.startTime}
+        />
 
-      <SimpleDatePicker
-        title="End Time"
-        defaultValue={state.endTime}
-        onChange={(e) => handleChange(e, SET_ENDTIME)}
-      />
+        <SimpleDatePicker
+          title="End Time"
+          defaultValue={event.endTime}
+          formRegister={{
+            ...register("endTime", {
+              required: "EndTime is required",
+            }),
+          }}
+          error={errors.endTime}
+        />
 
-      <FormControlWithValidation title="Category" isError={categoriesIsError}>
-        <CheckboxGroup
+        <Controller
+          name="categoryIds"
+          control={control}
           defaultValue={checkBoxValuesBug}
-          onChange={(e) => handleCategoryChange(e)}
-        >
-          <Stack spacing={[1, 5]} direction={["column", "row"]}>
-            {categoryCheckboxes}
-          </Stack>
-        </CheckboxGroup>
-      </FormControlWithValidation>
+          rules={{ required: true }}
+          render={({ field, fieldState }) => {
+            return (
+              <FormControlWithValidation
+                title="Category"
+                isError={fieldState.invalid}
+              >
+                <CheckboxGroup {...field} defaultValue={checkBoxValuesBug}>
+                  <Stack spacing={[1, 5]} direction={["column", "row"]}>
+                    {categoryCheckboxes}
+                  </Stack>
+                </CheckboxGroup>
+              </FormControlWithValidation>
+            );
+          }}
+        />
 
-      <FormControlWithValidation
-        title="Organizer"
-        isError={selectedUserIsError}
-      >
-        <Select
-          defaultValue={selectedUserOption}
-          onChange={(e) => handleUserChange(e)}
-        >
-          {userOptions}
-        </Select>
-      </FormControlWithValidation>
+        <Controller
+          name="createdBy"
+          control={control}
+          defaultValue={`${event.createdBy || ""}`}
+          rules={{ required: true }}
+          render={({ field, fieldState }) => {
+            return (
+              <FormControlWithValidation
+                title="Organizer"
+                isError={fieldState.invalid}
+                errorMessage={fieldState.invalid && "Please select one"}
+              >
+                <Select {...field} defaultValue={`${event.createdBy || ""}`}>
+                  {userOptions}
+                </Select>
+              </FormControlWithValidation>
+            );
+          }}
+        />
 
-      <Button mt={4} colorScheme="teal" type="submit" onClick={handleSubmit}>
-        Submit
-      </Button>
-    </Box>
+        <Button
+          mt={4}
+          colorScheme="teal"
+          type="submit"
+          isLoading={isSubmitting}
+        >
+          Submit
+        </Button>
+      </Box>
+    </form>
   );
 };
