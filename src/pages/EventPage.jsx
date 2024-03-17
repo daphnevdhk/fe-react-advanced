@@ -29,6 +29,8 @@ import { useNavigate } from "react-router-dom";
 import { EventForm } from "../components/event/EventForm";
 import { putEvent } from "../api/eventApi";
 import { useNotificationContext } from "../hooks/use-notification-context";
+import DeleteConfirmation from "../components/event/DeleteConfirmation";
+import { deleteEvent } from "../api/eventApi";
 
 const EventButton = ({ children, ...rest }) => (
   <Button
@@ -45,6 +47,7 @@ const EventButton = ({ children, ...rest }) => (
 );
 
 export const EventPage = () => {
+  const editFormDisclosure = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const event = useLoaderData();
   const navigate = useNavigate();
@@ -56,6 +59,15 @@ export const EventPage = () => {
     } else {
       addNotification("nooo");
     }
+  };
+
+  const onDelete = async () => {
+    await deleteEvent(event.id);
+    return goToHome();
+  };
+
+  const goToHome = () => {
+    return navigate("/");
   };
 
   return (
@@ -125,14 +137,22 @@ export const EventPage = () => {
             </Stack>
 
             <ButtonGroup>
-              <EventButton onClick={() => navigate("/")}>Close</EventButton>
-              <EventButton onClick={onOpen}>Edit</EventButton>
-              <EventButton colorScheme="red">Delete</EventButton>
+              <EventButton onClick={() => goToHome()}>Close</EventButton>
+              <EventButton onClick={editFormDisclosure.onOpen}>
+                Edit
+              </EventButton>
+              <EventButton onClick={onOpen} colorScheme="red">
+                Delete
+              </EventButton>
             </ButtonGroup>
           </Stack>
         </SimpleGrid>
       </LinkBox>
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+      <Drawer
+        isOpen={editFormDisclosure.isOpen}
+        placement="right"
+        onClose={editFormDisclosure.onClose}
+      >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
@@ -143,6 +163,13 @@ export const EventPage = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
+      <DeleteConfirmation
+        isOpen={isOpen}
+        onClose={onClose}
+        onOpen={onOpen}
+        title={event.title}
+        onConfirmation={onDelete}
+      />
     </>
   );
 };

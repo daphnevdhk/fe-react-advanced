@@ -26,7 +26,7 @@
       "id": 1
     },
     {
-      "createdBy": 1,
+      "createdBy": 2,
       "title": "Laser Tag mania",
       "description": "Let's play laser tag!",
       "image": "https://www.ctvnews.ca/polopoly_fs/1.5118552.1600965663!/httpImage/image.jpg_gen/derivatives/landscape_1020/image.jpg",
@@ -66,20 +66,6 @@
       "endTime": "2023-03-09T07:00:00.000Z"
     },
     {
-      "createdBy": 1,
-      "title": "bbq",
-      "description": "bbq by me",
-      "image": "https://ymcasouthflorida.org/wp-content/uploads/2019/12/AA2I8910-scaled.jpg",
-      "categoryIds": [
-        1,
-        2
-      ],
-      "location": "Breda",
-      "startTime": "2024-03-10T17:31",
-      "endTime": "2024-03-14T17:31",
-      "id": 5
-    },
-    {
       "createdBy": 2,
       "title": "bbq lekker!",
       "description": "bqq bij mij",
@@ -93,34 +79,6 @@
       "startTime": "2024-03-10T17:42",
       "endTime": "2024-03-30T17:42",
       "id": 6
-    },
-    {
-      "createdBy": 1,
-      "title": "ss",
-      "description": "ss",
-      "image": "s",
-      "categoryIds": [
-        1,
-        2
-      ],
-      "location": "s",
-      "startTime": "2024-03-17T17:24",
-      "endTime": "2024-02-29T17:24",
-      "id": 7
-    },
-    {
-      "createdBy": 1,
-      "title": "Ballon ",
-      "description": "bb",
-      "image": "bb",
-      "categoryIds": [
-        2,
-        3
-      ],
-      "location": "bbd",
-      "startTime": "2024-03-17T18:31",
-      "endTime": "2024-03-17T21:31",
-      "id": 8
     }
   ],
   "categories": [

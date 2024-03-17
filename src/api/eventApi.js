@@ -34,7 +34,6 @@ export const getEvents = async (filter) => {
     };
   }
 
-  console.log(params);
   const url = `${import.meta.env.VITE_REACT_APP_API_URL}/events`;
   const response = await axios.get(url, {
     params: params,
@@ -66,4 +65,11 @@ export const putEvent = async (eventId, event) => {
   const response = await axios.put(url, cleanEvent(event));
 
   return response.status === 200 || response.status === 201;
+};
+
+export const deleteEvent = async (eventId) => {
+  const url = `${import.meta.env.VITE_REACT_APP_API_URL}/events/${eventId}`;
+  const response = await axios.delete(url);
+
+  return response === 204;
 };
