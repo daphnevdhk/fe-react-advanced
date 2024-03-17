@@ -166,7 +166,10 @@ export const EventForm = ({ event, onSave }) => {
                 isError={fieldState.invalid}
                 errorMessage={fieldState.invalid && "Please select one"}
               >
-                <Select {...field} defaultValue={`${event.createdBy || ""}`}>
+                <Select
+                  onChange={field.onChange}
+                  defaultValue={`${event.createdBy || ""}`}
+                >
                   {userOptions}
                 </Select>
               </FormControlWithValidation>
