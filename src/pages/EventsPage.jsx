@@ -24,11 +24,14 @@ import {
 } from "../reducers/eventSearchFilterReducer";
 import { EventForm } from "../components/event/EventForm";
 import { postEvent } from "../api/eventApi";
+import { useNotification } from "../hooks/use-notification";
 
 export const EventsPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isFethcing, setIsFethcing] = useState(false);
   const [events, setEvents] = useState([]);
+  const [reload, setReload] = useState(false);
+  const { showError, showSuccess } = useNotification();
   const [searchFilterState, dispatch] = useReducer(eventSearchFilterReducer, {
     search: "",
     categories: [],
@@ -36,7 +39,11 @@ export const EventsPage = () => {
 
   useEffect(() => {
     fetchEvents(searchFilterState);
-  }, [searchFilterState]);
+
+    if (reload) {
+      setReload(false);
+    }
+  }, [searchFilterState, reload]);
 
   const fetchEvents = async (search) => {
     setIsFethcing(true);
@@ -59,9 +66,11 @@ export const EventsPage = () => {
 
   const onNewItemAdded = async (event) => {
     if (await postEvent(event)) {
-      console.log("jeeeeh");
+      onClose();
+      showSuccess("Succes!", `${event.title} added`);
+      setReload(true);
     } else {
-      console.log("nooooo");
+      showError("Failed!", `Could not add ${event.title}`);
     }
   };
 
