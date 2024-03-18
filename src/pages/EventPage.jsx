@@ -19,6 +19,9 @@ import {
   DrawerContent,
   DrawerHeader,
   useDisclosure,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { getEvent } from "../api/eventApi";
@@ -32,6 +35,7 @@ import DeleteConfirmation from "../components/event/DeleteConfirmation";
 import { deleteEvent } from "../api/eventApi";
 import { useNotification } from "../hooks/use-notification";
 import { Button } from "../components/common/Button";
+import { Link } from "react-router-dom";
 
 export const EventPage = () => {
   const editFormDisclosure = useDisclosure();
@@ -82,6 +86,16 @@ export const EventPage = () => {
 
   return (
     <>
+      <Breadcrumb fontWeight="medium" fontSize="lg">
+        <BreadcrumbItem>
+          <BreadcrumbLink as={Link} to="/">
+            Home
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem isCurrentPage>
+          <BreadcrumbLink>Details</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
       <LinkBox maxW={"7xl"}>
         <SimpleGrid
           columns={{ base: 1, lg: 2 }}
