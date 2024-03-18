@@ -9,7 +9,11 @@ import {
   Flex,
   TagCloseButton,
   Select,
+  InputGroup,
+  InputLeftElement,
+  useColorModeValue,
 } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
 
 export const SearchAndFilter = ({
   activeCategoryIds,
@@ -34,7 +38,7 @@ export const SearchAndFilter = ({
     }
   };
 
-  const renderedSelectedCatogories = categories
+  const renderedSelectedCategories = categories
     .filter((c) => activeCategoryIds.some((a) => a == c.id))
     .map((c) => (
       <Tag key={c.id} mx={1} size={"lg"}>
@@ -43,33 +47,39 @@ export const SearchAndFilter = ({
       </Tag>
     ));
 
-  const renderedCatogoryOptions = categories
+  const renderedCategoryOptions = categories
     .filter((c) => !activeCategoryIds.some((a) => a == c.id))
-    .map((c) => (
-      <option key={c.id} value={c.id}>
+    .map((c, index) => (
+      <option key={index + 1} value={c.id}>
         {c.name}
       </option>
     ));
 
+  console.log(categories);
+
   return (
-    <>
-      <Stack>
-        <HStack>
-          <Box>
-            <Input
-              type="text"
-              onChange={(e) => onSearchChange(e.target.value)}
-            />
-          </Box>
-          <Box>
-            <Select onChange={(event) => onCategorySelectChange(event)}>
-              <option value="-1"></option>
-              {renderedCatogoryOptions}
+    <Stack>
+      <HStack>
+        {renderedCategoryOptions.length > 0 && (
+          <Box w="20%">
+            <Select
+              placeholder="Filter on Category"
+              value={-100}
+              defaultValue={-100}
+              onChange={(event) => onCategorySelectChange(event)}
+            >
+              {renderedCategoryOptions}
             </Select>
           </Box>
-        </HStack>
-        <Flex>{renderedSelectedCatogories}</Flex>
-      </Stack>
-    </>
+        )}
+        <InputGroup>
+          <InputLeftElement pointerEvents="none">
+            <SearchIcon color={useColorModeValue("teal", "gray.300")} />
+          </InputLeftElement>
+          <Input type="text" onChange={(e) => onSearchChange(e.target.value)} />
+        </InputGroup>
+      </HStack>
+      <Flex>{renderedSelectedCategories}</Flex>
+    </Stack>
   );
 };

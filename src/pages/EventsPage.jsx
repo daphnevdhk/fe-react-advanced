@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Heading,
   SimpleGrid,
   useDisclosure,
   Drawer,
@@ -11,6 +10,7 @@ import {
   DrawerContent,
   Box,
   IconButton,
+  Container,
 } from "@chakra-ui/react";
 import { useState, useEffect, useReducer } from "react";
 import { EventSkeleton } from "../components/events/EventSkeleton";
@@ -27,6 +27,7 @@ import { EventForm } from "../components/event/EventForm";
 import { postEvent } from "../api/eventApi";
 import { useNotification } from "../hooks/use-notification";
 import { AddIcon } from "@chakra-ui/icons";
+import { PhotoCarousel } from "../components/events/PhotoCarousel";
 
 export const EventsPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -93,16 +94,21 @@ export const EventsPage = () => {
 
   return (
     <>
-      <Heading>List of events</Heading>
-      <SearchAndFilter
-        activeCategoryIds={searchFilterState.categories}
-        onTagSelectionChange={onTagSelectionChange}
-        onSearchChange={onSearchChange}
-      />
+      <Container maxW="container.lg">
+        <PhotoCarousel></PhotoCarousel>
+      </Container>
+      <Box mt={2} mb={2}>
+        <SearchAndFilter
+          activeCategoryIds={searchFilterState.categories}
+          onTagSelectionChange={onTagSelectionChange}
+          onSearchChange={onSearchChange}
+        />
+      </Box>
 
       <SimpleGrid minChildWidth="300px" spacing="20px">
         {renderedEvents}
       </SimpleGrid>
+
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>

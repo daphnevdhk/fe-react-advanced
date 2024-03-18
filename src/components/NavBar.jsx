@@ -8,6 +8,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import SpellWords from "./events/SpellWord";
 
 export const NavBar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -16,7 +17,9 @@ export const NavBar = () => {
       <Box bg={useColorModeValue("teal", "gray.900")} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <Box>
-            <Heading color="white">Events for you!</Heading>
+            <Heading color="white">
+              <SpellWords />
+            </Heading>
           </Box>
 
           <Flex alignItems={"center"}>
