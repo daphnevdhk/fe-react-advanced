@@ -114,7 +114,7 @@ export const EventsPage = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-      <Box position="absolute" bottom="2" right="2">
+      <Box position="fixed" bottom="2" right="2">
         <IconButton
           isRound={true}
           variant="solid"
