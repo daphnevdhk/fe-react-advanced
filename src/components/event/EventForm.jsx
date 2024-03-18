@@ -1,17 +1,11 @@
-import {
-  Box,
-  CheckboxGroup,
-  Checkbox,
-  Stack,
-  Button,
-  Select,
-} from "@chakra-ui/react";
+import { Box, CheckboxGroup, Checkbox, Stack, Select } from "@chakra-ui/react";
 import { SimpleInput } from "./SimpleInput";
 import { SimpleTextarea } from "./SimpleTextarea";
 import { SimpleDatePicker } from "./SimpleDatePicker";
 import { FormControlWithValidation } from "./FormControlWithValidation";
 import { useForm, Controller } from "react-hook-form";
 import { useSiteContext } from "../../hooks/use-Site-Context";
+import { Button } from "../common/Button";
 
 export const EventForm = ({ event, onSave }) => {
   console.log(event);

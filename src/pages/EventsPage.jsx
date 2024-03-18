@@ -9,7 +9,8 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  Button,
+  Box,
+  IconButton,
 } from "@chakra-ui/react";
 import { useState, useEffect, useReducer } from "react";
 import { EventSkeleton } from "../components/events/EventSkeleton";
@@ -25,6 +26,7 @@ import {
 import { EventForm } from "../components/event/EventForm";
 import { postEvent } from "../api/eventApi";
 import { useNotification } from "../hooks/use-notification";
+import { AddIcon } from "@chakra-ui/icons";
 
 export const EventsPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -97,7 +99,7 @@ export const EventsPage = () => {
         onTagSelectionChange={onTagSelectionChange}
         onSearchChange={onSearchChange}
       />
-      <Button onClick={onOpen}>New</Button>
+
       <SimpleGrid minChildWidth="300px" spacing="20px">
         {renderedEvents}
       </SimpleGrid>
@@ -112,6 +114,21 @@ export const EventsPage = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
+      <Box position="absolute" bottom="2" right="2">
+        <IconButton
+          isRound={true}
+          variant="solid"
+          colorScheme="teal"
+          aria-label="Done"
+          size="lg"
+          onClick={onOpen}
+          icon={<AddIcon />}
+          _hover={{
+            transform: "translateY(2px)",
+            boxShadow: "lg",
+          }}
+        />
+      </Box>
     </>
   );
 };

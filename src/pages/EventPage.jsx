@@ -8,7 +8,6 @@ import {
   Stack,
   StackDivider,
   useColorModeValue,
-  Button,
   Avatar,
   Text,
   ButtonGroup,
@@ -32,20 +31,7 @@ import { putEvent } from "../api/eventApi";
 import DeleteConfirmation from "../components/event/DeleteConfirmation";
 import { deleteEvent } from "../api/eventApi";
 import { useNotification } from "../hooks/use-notification";
-
-const EventButton = ({ children, ...rest }) => (
-  <Button
-    size={{ base: "md", sm: "sm", lg: "lg" }}
-    textTransform={"uppercase"}
-    _hover={{
-      transform: "translateY(2px)",
-      boxShadow: "lg",
-    }}
-    {...rest}
-  >
-    {children}
-  </Button>
-);
+import { Button } from "../components/common/Button";
 
 export const EventPage = () => {
   const editFormDisclosure = useDisclosure();
@@ -161,13 +147,11 @@ export const EventPage = () => {
             </Stack>
 
             <ButtonGroup>
-              <EventButton onClick={() => goToHome()}>Close</EventButton>
-              <EventButton onClick={editFormDisclosure.onOpen}>
-                Edit
-              </EventButton>
-              <EventButton onClick={onOpen} colorScheme="red">
+              <Button onClick={() => goToHome()}>Close</Button>
+              <Button onClick={editFormDisclosure.onOpen}>Edit</Button>
+              <Button onClick={onOpen} colorScheme="red">
                 Delete
-              </EventButton>
+              </Button>
             </ButtonGroup>
           </Stack>
         </SimpleGrid>
