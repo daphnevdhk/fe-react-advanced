@@ -30,7 +30,7 @@ import { AddIcon } from "@chakra-ui/icons";
 
 export const EventsPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isFethcing, setIsFethcing] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const [events, setEvents] = useState([]);
   const [reload, setReload] = useState(false);
   const { showError, showSuccess } = useNotification();
@@ -48,10 +48,10 @@ export const EventsPage = () => {
   }, [searchFilterState, reload]);
 
   const fetchEvents = async (search) => {
-    setIsFethcing(true);
+    setIsFetching(true);
     const response = await getEvents(search);
     setEvents(response);
-    setIsFethcing(false);
+    setIsFetching(false);
   };
 
   const onTagSelectionChange = (categoryId, isSelected) => {
@@ -87,7 +87,7 @@ export const EventsPage = () => {
     </>
   );
 
-  const renderedEvents = isFethcing
+  const renderedEvents = isFetching
     ? loadingPlaceHolder
     : events.map((e) => <EventCard key={e.id} event={e} />);
 
