@@ -45,8 +45,6 @@ export const SearchAndFilter = ({
       </option>
     ));
 
-  console.log(categories);
-
   return (
     <Stack>
       <HStack>
