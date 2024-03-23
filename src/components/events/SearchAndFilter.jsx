@@ -55,7 +55,6 @@ export const SearchAndFilter = ({
             <Select
               placeholder="Filter on Category"
               value={-100}
-              defaultValue={-100}
               onChange={(event) => onCategorySelectChange(event)}
             >
               {renderedCategoryOptions}
