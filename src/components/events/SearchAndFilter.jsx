@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { getCategories } from "../../api/categoryApi";
 import {
   Tag,
   Stack,
@@ -14,22 +12,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
+import { useSiteContext } from "../../hooks/use-Site-Context";
 
 export const SearchAndFilter = ({
   activeCategoryIds,
   onTagSelectionChange,
   onSearchChange,
 }) => {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
-    const response = await getCategories();
-    setCategories(response);
-  };
+  const { categories } = useSiteContext();
 
   const onCategorySelectChange = (e) => {
     const value = Number(e.target.value);
