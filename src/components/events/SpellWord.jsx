@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-const SpellWords = () => {
-  const words = [" Games...", " Sports...", " Relaxation..."]; // replace with your words
+const SpellWords = ({ categories }) => {
+  const words =
+    categories.length > 0
+      ? categories.map((c) => c.name + "...")
+      : ["Games..."];
   const [wordIndex, setWordIndex] = useState(0);
   const [letterIndex, setLetterIndex] = useState(0);
 
