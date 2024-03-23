@@ -42,13 +42,13 @@ export const getEvents = async (filter) => {
     },
   });
 
-  return await Promise.all(response.data.map((e) => mapEvent(e)));
+  return response.data;
 };
 
-export const getEvent = async (eventId) => {
+export const getEvent = async (eventId, users, categories) => {
   const url = `${import.meta.env.VITE_REACT_APP_API_URL}/events/${eventId}`;
   const response = await axios.get(url);
-  return await mapEvent(response.data);
+  return await mapEvent(response.data, users, categories);
 };
 
 export const postEvent = async (event) => {

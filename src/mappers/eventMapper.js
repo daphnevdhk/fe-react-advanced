@@ -1,12 +1,16 @@
-import { getUser } from "../api/userApi";
-import { getCategoriesByIds } from "../api/categoryApi";
+export const mapEvent = (event, users, categories) => {
+  const createdByUser = users.find((u) => u.id == event.createdBy) || {
+    name: "",
+    image: "",
+  };
 
-export const mapEvent = async (event) => {
-  const createdByUser = await getUser(event.createdBy);
-  const categories = await getCategoriesByIds(event.categoryIds);
+  const categoriesByEvent = categories.filter((c) =>
+    event.categoryIds.some((id) => id == c.id)
+  );
+
   return {
     ...event,
     createdByUser: createdByUser,
-    categories: categories,
+    categories: categoriesByEvent,
   };
 };

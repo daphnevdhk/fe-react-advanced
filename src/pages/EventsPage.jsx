@@ -28,10 +28,13 @@ import { postEvent } from "../api/eventApi";
 import { useNotification } from "../hooks/use-notification";
 import { AddIcon } from "@chakra-ui/icons";
 import { PhotoCarousel } from "../components/events/PhotoCarousel";
+import { useSiteContext } from "../hooks/use-Site-Context";
+import { mapEvent } from "../mappers/eventMapper";
 
 export const EventsPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isFetching, setIsFetching] = useState(false);
+  const { users, categories } = useSiteContext();
   const [events, setEvents] = useState([]);
   const [reload, setReload] = useState(false);
   const { showError, showSuccess } = useNotification();
@@ -50,7 +53,7 @@ export const EventsPage = () => {
 
   const fetchEvents = async (search) => {
     setIsFetching(true);
-    const response = await getEvents(search);
+    const response = await getEvents(search, users, categories);
     setEvents(response);
     setIsFetching(false);
   };
@@ -88,9 +91,12 @@ export const EventsPage = () => {
     </>
   );
 
+  console.log("events", events);
   const renderedEvents = isFetching
     ? loadingPlaceHolder
-    : events.map((e) => <EventCard key={e.id} event={e} />);
+    : events.map((e) => (
+        <EventCard key={e.id} event={mapEvent(e, users, categories)} />
+      ));
 
   return (
     <>

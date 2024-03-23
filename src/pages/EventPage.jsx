@@ -37,6 +37,7 @@ import { deleteEvent } from "../api/eventApi";
 import { useNotification } from "../hooks/use-notification";
 import { Button } from "../components/common/Button";
 import { Link } from "react-router-dom";
+import { useSiteContext } from "../hooks/use-Site-Context";
 
 export const EventPage = () => {
   const editFormDisclosure = useDisclosure();
@@ -46,6 +47,7 @@ export const EventPage = () => {
   const [reload, setReload] = useState(false);
   const navigate = useNavigate();
   const { showError, showSuccess } = useNotification();
+  const { users, categories } = useSiteContext();
 
   useEffect(() => {
     fetchEvent();
@@ -55,7 +57,7 @@ export const EventPage = () => {
   }, [reload]);
 
   const fetchEvent = async () => {
-    const response = await getEvent(Number(eventId));
+    const response = await getEvent(Number(eventId), users, categories);
     setEvent(response);
   };
 
