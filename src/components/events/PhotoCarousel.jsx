@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Image, Skeleton } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 export const PhotoCarousel = () => {
@@ -19,12 +19,14 @@ export const PhotoCarousel = () => {
   }, [images.length]);
 
   return (
-    <Box
-      height={"xs"}
-      width="100%"
-      backgroundRepeat="no-repeat"
-      backgroundSize="cover"
-      backgroundImage={`url(${images[index]})`}
-    ></Box>
+    <Box height={"xs"} width="100%">
+      <Image
+        fallback={<Skeleton h={"100%"} w={"100%"} />}
+        src={images[index]}
+        fit="cover"
+        h={"100%"}
+        w={"100%"}
+      />
+    </Box>
   );
 };

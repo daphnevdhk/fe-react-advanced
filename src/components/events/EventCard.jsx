@@ -6,6 +6,7 @@ import {
   Image,
   useColorModeValue,
   LinkBox,
+  Skeleton,
 } from "@chakra-ui/react";
 import { Tags } from "../common/Tags";
 import { CalendarIcon } from "@chakra-ui/icons";
@@ -32,6 +33,7 @@ export const EventCard = ({ event, ...rest }) => {
     >
       <Box h={"210px"} bg={"gray.100"} mt={-6} mx={-6} mb={6} pos={"relative"}>
         <Image
+          fallback={<Skeleton h={"100%"} w={"100%"} />}
           src={event.image}
           fit="cover"
           alt="Example"
