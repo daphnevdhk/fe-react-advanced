@@ -22,6 +22,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Skeleton,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { getEvent } from "../api/eventApi";
@@ -104,8 +105,14 @@ export const EventPage = () => {
         >
           <Flex>
             <Image
+              fallback={
+                <Skeleton
+                  w={"100%"}
+                  h={{ base: "100%", sm: "400px", lg: "500px" }}
+                />
+              }
               rounded={"md"}
-              alt={"recipe image"}
+              alt={"event image"}
               src={event.image}
               fit={"cover"}
               align={"center"}
@@ -138,10 +145,6 @@ export const EventPage = () => {
             >
               <Box>
                 <Text>{event.description}</Text>
-              </Box>
-
-              <Box>
-                <title>hoi</title>
               </Box>
             </Stack>
 
