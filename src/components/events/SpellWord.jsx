@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-const SpellWords = ({ categories }) => {
+export const SpellWords = ({ categories }) => {
   const words =
     categories.length > 0
-      ? categories.map((c) => c.name + "...")
-      : ["Games..."];
+      ? categories.map((c) => " " + c.name + "...")
+      : [" Games..."];
+
   const [wordIndex, setWordIndex] = useState(0);
   const [letterIndex, setLetterIndex] = useState(0);
 
@@ -18,12 +19,10 @@ const SpellWords = ({ categories }) => {
           return 0;
         }
       });
-    }, 200); // change letter every second
+    }, 200);
 
     return () => clearInterval(interval); // cleanup on unmount
   }, [words, wordIndex]);
 
   return <div>{words[wordIndex].slice(0, letterIndex + 1)}</div>;
 };
-
-export default SpellWords;
