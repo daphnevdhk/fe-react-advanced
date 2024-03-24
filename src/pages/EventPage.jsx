@@ -40,14 +40,14 @@ import { Link } from "react-router-dom";
 import { useSiteContext } from "../hooks/use-Site-Context";
 
 export const EventPage = () => {
-  const editFormDisclosure = useDisclosure();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [reload, setReload] = useState(false);
   const navigate = useNavigate();
   const { showError, showSuccess } = useNotification();
   const { users, categories } = useSiteContext();
+  const editFormDisclosure = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     fetchEvent();
