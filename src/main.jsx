@@ -5,11 +5,15 @@ import { EventPage } from "./pages/EventPage";
 import { EventsPage } from "./pages/EventsPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Root } from "./components/Root";
+import { ErrorBoundary } from "./components/ErrorBoundary";
+import { ErrorPage } from "./pages/ErrorPage";
+import { PageNotFound } from "./pages/PageNotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -21,6 +25,10 @@ const router = createBrowserRouter([
         element: <EventPage />,
         // action: addComment,
       },
+      {
+        path: "*",
+        element: <PageNotFound />,
+      },
     ],
   },
 ]);
@@ -28,7 +36,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ChakraProvider>
-      <RouterProvider router={router} />
+      <ErrorBoundary>
+        <RouterProvider router={router} />
+      </ErrorBoundary>
     </ChakraProvider>
   </React.StrictMode>
 );
