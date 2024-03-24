@@ -41,10 +41,10 @@ import { useSiteContext } from "../hooks/useSiteContext";
 
 export const EventPage = () => {
   const { eventId } = useParams();
-  const [event, setEvent] = useState(null);
-  const [reload, setReload] = useState(false);
   const navigate = useNavigate();
   const { showError, showSuccess } = useNotification();
+  const [event, setEvent] = useState(null);
+  const [reload, setReload] = useState(false);
   const { users, categories } = useSiteContext();
   const editFormDisclosure = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
