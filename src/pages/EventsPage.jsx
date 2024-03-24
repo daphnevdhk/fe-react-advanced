@@ -73,7 +73,7 @@ export const EventsPage = () => {
   const onNewItemAdded = async (event) => {
     if (await postEvent(event)) {
       onClose();
-      showSuccess("Succes!", `${event.title} added`);
+      showSuccess("Success!", `${event.title} added`);
       setReload(true);
     } else {
       showError("Failed!", `Could not add ${event.title}`);
@@ -91,7 +91,6 @@ export const EventsPage = () => {
     </>
   );
 
-  console.log("events", events);
   const renderedEvents = isFetching
     ? loadingPlaceHolder
     : events.map((e) => (

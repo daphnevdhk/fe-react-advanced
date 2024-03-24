@@ -80,9 +80,6 @@ export const EventPage = () => {
     return navigate("/");
   };
 
-  console.log(eventId);
-  console.log(event);
-
   if (!event) {
     return <></>;
   }

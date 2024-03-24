@@ -8,8 +8,6 @@ import { useSiteContext } from "../../hooks/use-Site-Context";
 import { Button } from "../common/Button";
 
 export const EventForm = ({ event, onSave }) => {
-  console.log(event);
-
   const { categories, users } = useSiteContext();
 
   const {
