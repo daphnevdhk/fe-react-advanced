@@ -39,7 +39,6 @@
       "id": 2
     },
     {
-      "id": 3,
       "createdBy": 2,
       "title": "Badminton game",
       "description": "Hit that shuttle!",
@@ -49,11 +48,11 @@
         2
       ],
       "location": "The Park",
-      "startTime": "2023-03-15T12:00:00.000Z",
-      "endTime": "2023-03-15T13:30:00.000Z"
+      "startTime": "2024-03-25T13:51",
+      "endTime": "2024-03-20T13:51",
+      "id": 3
     },
     {
-      "id": 4,
       "createdBy": 2,
       "title": "Yoga",
       "description": "It's a bit of a stretch.",
@@ -62,8 +61,9 @@
         3
       ],
       "location": "Shavasana Yoga School",
-      "startTime": "2023-03-09T06:00:00.000Z",
-      "endTime": "2023-03-09T07:00:00.000Z"
+      "startTime": "2024-03-30T13:52",
+      "endTime": "2024-04-04T13:52",
+      "id": 4
     },
     {
       "createdBy": 2,
