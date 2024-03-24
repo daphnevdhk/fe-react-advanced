@@ -12,7 +12,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { useSiteContext } from "../../hooks/use-Site-Context";
+import { useSiteContext } from "../../hooks/useSiteContext";
 
 export const SearchAndFilter = ({
   activeCategoryIds,

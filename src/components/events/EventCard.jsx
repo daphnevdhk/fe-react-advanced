@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { Tags } from "../common/Tags";
 import { CalendarIcon } from "@chakra-ui/icons";
-import { useFormatDate } from "../../hooks/useFormatDate";
+import { formatDate } from "../../logic/date";
 import { useNavigate } from "react-router-dom";
 
 export const EventCard = ({ event, ...rest }) => {
@@ -53,9 +53,9 @@ export const EventCard = ({ event, ...rest }) => {
         <Text color={"gray.500"}>{event.description}</Text>
 
         <Text color={"gray.500"}>
-          <CalendarIcon /> {useFormatDate(event.startTime)}
+          <CalendarIcon /> {formatDate(event.startTime)}
           {" / "}
-          {useFormatDate(event.endTime)}
+          {formatDate(event.endTime)}
         </Text>
       </Stack>
     </LinkBox>

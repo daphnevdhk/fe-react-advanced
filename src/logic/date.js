@@ -1,4 +1,4 @@
-export const useFormatDate = (dateToConvert) => {
+export const formatDate = (dateToConvert) => {
   const options = {
     year: "numeric",
     month: "2-digit",

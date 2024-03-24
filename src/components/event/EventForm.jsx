@@ -4,7 +4,7 @@ import { SimpleTextarea } from "./SimpleTextarea";
 import { SimpleDatePicker } from "./SimpleDatePicker";
 import { FormControlWithValidation } from "./FormControlWithValidation";
 import { useForm, Controller } from "react-hook-form";
-import { useSiteContext } from "../../hooks/use-Site-Context";
+import { useSiteContext } from "../../hooks/useSiteContext";
 import { Button } from "../common/Button";
 
 export const EventForm = ({ event, onSave }) => {

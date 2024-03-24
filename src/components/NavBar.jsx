@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { SpellWords } from "./events/SpellWord";
-import { useSiteContext } from "../hooks/use-Site-Context";
+import { useSiteContext } from "../hooks/useSiteContext";
 
 export const NavBar = () => {
   const { colorMode, toggleColorMode } = useColorMode();

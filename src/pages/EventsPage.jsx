@@ -25,10 +25,10 @@ import {
 } from "../reducers/eventSearchFilterReducer";
 import { EventForm } from "../components/event/EventForm";
 import { postEvent } from "../api/eventApi";
-import { useNotification } from "../hooks/use-notification";
+import { useNotification } from "../hooks/useNotification";
 import { AddIcon } from "@chakra-ui/icons";
 import { PhotoCarousel } from "../components/events/PhotoCarousel";
-import { useSiteContext } from "../hooks/use-Site-Context";
+import { useSiteContext } from "../hooks/useSiteContext";
 import { mapEvent } from "../mappers/eventMapper";
 
 export const EventsPage = () => {

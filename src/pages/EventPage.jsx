@@ -28,16 +28,16 @@ import { useParams } from "react-router-dom";
 import { getEvent } from "../api/eventApi";
 import { Tags } from "../components/common/Tags";
 import { CalendarIcon } from "@chakra-ui/icons";
-import { useFormatDate } from "../hooks/useFormatDate";
+import { formatDate } from "../logic/date";
 import { useNavigate } from "react-router-dom";
 import { EventForm } from "../components/event/EventForm";
 import { putEvent } from "../api/eventApi";
 import DeleteConfirmation from "../components/event/DeleteConfirmation";
 import { deleteEvent } from "../api/eventApi";
-import { useNotification } from "../hooks/use-notification";
+import { useNotification } from "../hooks/useNotification";
 import { Button } from "../components/common/Button";
 import { Link } from "react-router-dom";
-import { useSiteContext } from "../hooks/use-Site-Context";
+import { useSiteContext } from "../hooks/useSiteContext";
 
 export const EventPage = () => {
   const { eventId } = useParams();
@@ -155,9 +155,9 @@ export const EventPage = () => {
               <Stack direction={"column"} spacing={0}>
                 <Text fontWeight={600}>{event.createdByUser.name}</Text>
                 <Text color={"gray.500"}>
-                  <CalendarIcon /> {useFormatDate(event.startTime)}
+                  <CalendarIcon /> {formatDate(event.startTime)}
                   {" / "}
-                  {useFormatDate(event.endTime)}
+                  {formatDate(event.endTime)}
                 </Text>
               </Stack>
             </Stack>
