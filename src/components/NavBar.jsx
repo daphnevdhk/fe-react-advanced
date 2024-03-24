@@ -8,7 +8,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import SpellWords from "./events/SpellWord";
+import { SpellWords } from "./events/SpellWord";
 import { useSiteContext } from "../hooks/use-Site-Context";
 
 export const NavBar = () => {
