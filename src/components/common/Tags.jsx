@@ -1,9 +1,9 @@
 import { Tag, Stack, Flex } from "@chakra-ui/react";
-import { userStringToColor } from "../../hooks/useStringToColor";
+import { stringToColor } from "../../logic/color";
 
 export const Tags = ({ tags }) => {
   const renderedTags = tags.map((s, index) => (
-    <Tag key={index} backgroundColor={userStringToColor(s)} mx={1}>
+    <Tag key={index} backgroundColor={stringToColor(s)} mx={1}>
       {s}
     </Tag>
   ));
